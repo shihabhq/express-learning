@@ -1,7 +1,8 @@
 const express = require("express");
-const path = require("path");
+
 
 const app = express();
+const port = process.env.PORT || 8000;
 
 let posts = [
   { id: 1, post: "post 1 " },
@@ -20,7 +21,6 @@ app.param("id", (req, res, next, id) => {
 });
 
 app.get("/api/posts/:id", (req, res) => {
-  console.log(req.params);
   if (req.currentObject) {
     res.json(req.currentObject);
   } else {
@@ -43,6 +43,32 @@ app.post("/api/posts", (req, res) => {
   }
 });
 
-app.listen(8000, () => {
-  console.log("server is running");
+app.put("/api/posts/:id", (req, res) => {
+  if (req.currentObject) {
+    if (req.body && req.body.length) {
+      req.currentObject.post = req.body;
+      console.log(posts);
+      return res.status(200).send("post edited successfully");
+    } else {
+      return res.status(400).send("no post given to edit");
+    }
+  }
+
+  res.status(404).send("user not found");
+});
+
+app.delete("/api/posts/:id", (req, res) => {
+  const indexToRemove = posts.findIndex(
+    (post) => post.id === parseInt(req.params.id)
+  );
+
+  if (indexToRemove > -1) {
+    posts.splice(indexToRemove, 1);
+    return res.status(200).send("post removed successfully");
+  }
+  res.status(404).send("user was not found");
+});
+
+app.listen(port, () => {
+  console.log(`server is running ot port ${port}`);
 });
