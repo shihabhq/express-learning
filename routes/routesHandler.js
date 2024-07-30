@@ -4,9 +4,9 @@ const crudRouter = express.Router();
 
 //database
 let posts = [
-  { id: 1, post: "post 1 " },
-  { id: 2, post: "post 2 " },
-  { id: 3, post: "post 3 " },
+  { id: 1, post: "this is first post in the db " },
+  { id: 2, post: "post 2 in db" },
+  { id: 3, post: "post 3 in db" },
 ];
 
 //cRud GET posts to read

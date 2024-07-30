@@ -1,5 +1,6 @@
 //creating a post
 const postForm = document.querySelector("form");
+const postInput = document.querySelector("#post-input");
 
 async function createPost(e) {
   e.preventDefault();
@@ -20,6 +21,7 @@ async function createPost(e) {
       setTimeout(() => {
         alert(response.data.msg);
       }, 100);
+      postInput.value = "";
       showPost();
     } else {
       alert("post cannot be empty");
