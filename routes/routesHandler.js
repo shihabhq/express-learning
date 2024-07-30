@@ -1,4 +1,4 @@
-const express = require("express");
+import express from "express";
 
 const crudRouter = express.Router();
 
@@ -40,9 +40,9 @@ crudRouter.post("/", (req, res, next) => {
       post: req.body,
     };
     posts.push(newPost);
-    return res.send("posted successfully");
+    return res.send({ msg: "posted successfully" });
   }
-  next({ code: 400, msg: "no post was given" });
+  next({ code: 400, msg: "no post was given" }); //passing to error handler 
 });
 
 //crUd putting new value as a post to update
@@ -72,4 +72,4 @@ crudRouter.delete("/:id", (req, res, next) => {
   next({ code: 404, msg: "post was not found" });
 });
 
-module.exports = crudRouter;
+export default crudRouter;
